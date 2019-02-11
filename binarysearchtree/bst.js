@@ -9,13 +9,40 @@ class Node {
 class BST {
   constructor(head = null){
     this.head = head
+    this.arr = []
   }
   /**
    * Inserts a value into the tree.
    * @param {Number} value
    * @returns {BST}
    */
-  insert (value) { }
+  insert (value) {
+    const n = new Node(value)
+    if (!this.head) this.head = n
+    else {
+      let current = this.head
+      while (current) {
+        if (value < current.value) {
+          if (!current.left){
+            current.left = n
+            break
+          }
+          current = current.left
+        }
+        else if (value > current.value) {
+          if (!current.right){
+            current.right = n
+            break
+          }
+          current = current.right
+        }
+        else {
+          break // the value already exist in the tree
+        }
+      }
+    }
+    return this
+  }
   /**
    * Removes a value from the tree.
    * @param {Number} value
@@ -44,11 +71,17 @@ class BST {
    */
   depth () {}
   /**
-   * Console logs the tree based users option of
-   * breadth vs depth first traversal, default is breadth
-   * @param {String} option
+   * builds an array with the values from the BST in order
+   * @param {Node} node
+   * @param {Array} arr
    */
-  print (option = 'breadth') {}
+  inOrder (node = this.head, arr = this.arr) {
+    if (node) {
+      this.inOrder(node.left, arr)
+      arr.push(node.value)
+      this.inOrder(node.right, arr)
+    }
+  }
 }
 
 module.exports = BST
