@@ -14,6 +14,7 @@ class DoublyLinkedList {
     const n = new Node(value)
     if (!this.head) {
       this.head = n
+      this.tail = n
       this.head.next = this.tail
     } else {
       this.tail.next = n
