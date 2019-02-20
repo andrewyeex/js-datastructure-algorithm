@@ -1,60 +1,40 @@
 class Node {
-  constructor (value = null, left = null, right = null) {
-    this.value = value
-    this.left = left
-    this.right = right
+  constructor(data=null){
+    this.data = data
+    this.right = null
+    this.left = null
+  }
+  insert (data) {
+    if (data < this.data && this.left) this.left.insert(data)
+    else if (data < this.data) this.left = new Node(data)
+    else if (data > this.data && this.right) this.right.insert(data)
+    else if (data > this.data) this.right = new Node(data)
+  }
+  contains (data) {
+    
   }
 }
 
 class BST {
-  constructor(head = null){
-    this.head = head
-    this.arr = []
-  }
+  constructor(root = null){ this.root = root }
   /**
    * Inserts a value into the tree.
-   * @param {Number} value
+   * @param {Number} data
    * @returns {BST}
    */
-  insert (value) {
-    const n = new Node(value)
-    if (!this.head) this.head = n
-    else {
-      let current = this.head
-      while (current) {
-        if (value < current.value) {
-          if (!current.left){
-            current.left = n
-            break
-          }
-          current = current.left
-        }
-        else if (value > current.value) {
-          if (!current.right){
-            current.right = n
-            break
-          }
-          current = current.right
-        }
-        else {
-          break // the value already exist in the tree
-        }
-      }
-    }
-    return this
-  }
+  insert(data){ !this.root ? this.root = new Node(data) : this.root.insert(data) }
   /**
    * Removes a value from the tree.
    * @param {Number} value
    * @returns {Node}
    */
-  remove (value) { }
+  remove (data) { }
   /**
    * Find a node that contains the value passed.
    * @param {Number} value
    * @returns {Node}
    */
-  find (value) { }
+  find (data) { }
   /**
    * Returns the MAX value from the tree.
    * @returns {Node}
@@ -75,13 +55,44 @@ class BST {
    * @param {Node} node
    * @param {Array} arr
    */
-  inOrder (node = this.head, arr = this.arr) {
+  inOrder (node = this.root, arr = this.arr) {
     if (node) {
       this.inOrder(node.left, arr)
-      arr.push(node.value)
+      arr.push(node.data)
       this.inOrder(node.right, arr)
     }
   }
+  breadthTraverse(){
+    let arr = [this.root, 'yee']
+    let toPrint = []
+    while (arr.length > 0) {
+      const node = arr.shift()
+      if(node === 'yee' && arr.length > 0){
+        console.log(toPrint)
+        toPrint = []
+        arr.push('yee')
+      }
+      else if (node === 'yee' && arr.length === 0){ break }
+      else {
+        toPrint.push(node.data)
+        if (node.left !== null) arr.push(node.left)
+        if (node.right !== null) arr.push(node.right)
+      }
+    }
+  }
+}
+
+/**
+  recursive solution will validate each sub tree to make sure it meets the pre-req
+  for being a BST. Validate continues to do this for each subsequent sub tree
+  validation till it reaches the leaves of the tree.
+ */
+const validate = () => {
+  if (max !== null && node.data > max) return false
+  if (min !== null && node.data < min) return false
+  if (node.left && !validate(node.left, min, node.data)) return false // it will first validate the left hand side
+  if (node.right && !validate(node.right, node.data, max)) return false // then the right hand side
+  return true // return true if all IF statements was not satisfied
 }
 
 module.exports = BST

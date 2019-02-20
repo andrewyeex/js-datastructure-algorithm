@@ -12,6 +12,15 @@ describe('Binary Search Tree', () => {
       bst.inOrder()
       expect(bst.arr).toEqual([0, 1, 3, 10, 30])
     })
+    test('Traverse Breadth First', () => {
+      const bst = new BST()
+      bst.insert(3)
+      bst.insert(10)
+      bst.insert(1)
+      bst.insert(0)
+      bst.insert(30)
+      bst.traverseBF()
+    })
   })
   // describe('remove()', () => {
   //   test('Remove value from the tree')
