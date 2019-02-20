@@ -37,4 +37,11 @@ describe('Singly Linked List', () => {
     ll.prepend(50)
     expect(ll.midPoint().value).toEqual(10)
   })
+  test('isCircularList', () => {
+    // by default it shouldn't be circular
+    expect(ll.isCircularList()).toBe(false)
+    // once we connect the tail and the head it becomes circular
+    ll.tail.next = ll.head
+    expect(ll.isCircularList()).toBe(true)
+  })
 })

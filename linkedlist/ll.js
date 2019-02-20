@@ -108,7 +108,37 @@ class LinkedList {
     }
     return arr
   }
-
+  /**
+   * Without using a counter or the known value of the list size,
+   * return the node that mid point of the linked list
+   * @returns {Node}
+   */
+  midPoint(){
+    let slow = this.head
+    let fast = this.head
+    while (fast.next && fast.next.next) {
+      slow = slow.next
+      fast = fast.next.next
+    }
+    return slow;
+  }
+  /**
+   * Checks if the list returns back to a previously visited node
+   * and repeats its path over and over because its circular
+   * @returns {boolean}
+   */
+  isCircularList(){
+    let slow = this.head
+    let fast = this.head
+    while (fast.next && fast.next.next) {
+      slow = slow.next
+      fast = fast.next.next
+      if (slow === fast) {
+        return true
+      }
+    }
+    return false;
+  }
 }
 
 class Node {
