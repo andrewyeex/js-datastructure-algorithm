@@ -1,8 +1,7 @@
 class LinkedList {
-  constructor() {
-    this.head = null /* Node */
-    this.tail = null /* Node */
-    this.size = 0
+  constructor(head = null){
+    this.head = head
+    this.tail = null
   }
 
   /**
@@ -141,10 +140,11 @@ class LinkedList {
   }
 }
 
+
 class Node {
-  constructor (value, next = null) {
+  constructor (value = null, next = null) {
     this.value = value
-    this.next = next
+    this.next  = next
   }
 }
 
